@@ -5,5 +5,7 @@ vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
 vim.g.mapleader = "<Space>"
 
-
+local opt = vim.opt
+opt.foldmethod = "marker"       -- use marker folds
+opt.number = true
 require("config.lazy")
