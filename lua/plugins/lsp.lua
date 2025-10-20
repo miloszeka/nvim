@@ -27,7 +27,7 @@ return {
             reborrowHints = { enable = "always" },
             typeHints = { enable = true },
           },
-          checkOnSave = { commands = { "clippy" } },
+          checkOnSave = true,
           check = { comman = "clippy" },
         },
       },
