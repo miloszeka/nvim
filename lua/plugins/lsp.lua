@@ -1,7 +1,11 @@
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    require("lspconfig").rust_analyzer.setup({
+    vim.lsp.config("rust-analyzer", {
+      cmd = { "rust-analyzer" },
+      filetypes = { "rust" },
+      root_markers = { "Cargo.toml", "rust-project.json" },
+
       on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
 
