@@ -6,6 +6,15 @@ return {
       group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
       callback = function(ev)
         local opts = { buffer = ev.buf, silent = true }
+
+        -- Navigation & Definitions
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)       -- Jump to definition
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)      -- Jump to declaration
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)   -- Jump to implementation
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)       -- List references
+        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)  -- Jump to type definition
+
+        -- Information & Diagnostics
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
@@ -15,7 +24,6 @@ return {
     })
 
     vim.lsp.config("rust_analyzer", {
-      -- Force rustup wrapper so rust-analyzer and cargo versions match
       cmd = { "rustup", "run", "stable", "rust-analyzer" },
       settings = {
         ["rust-analyzer"] = {
