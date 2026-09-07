@@ -20,8 +20,15 @@ return {
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
-      end,
-    })
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = ev.buf,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = ev.buf, id = client.id, timeout_ms = 2000 })
+              end,
+            })
+          end,
+        })
 
     vim.lsp.config("rust_analyzer", {
       cmd = { "rustup", "run", "stable", "rust-analyzer" },
